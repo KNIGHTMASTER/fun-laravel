@@ -1,0 +1,1 @@
+<a href="{!! URL::to($entityBaseUrl) !!}" class="btn btn-danger">Cancel</a>

@@ -1,0 +1,1 @@
+@extends('scaffold.index-table-layout')

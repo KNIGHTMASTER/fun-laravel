@@ -1,0 +1,3 @@
+<div>
+    {!! $allData->links()  !!}
+</div>

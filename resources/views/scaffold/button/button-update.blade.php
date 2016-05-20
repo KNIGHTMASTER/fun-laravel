@@ -1,0 +1,1 @@
+{!! Form::submit('Update', ['class' => 'btn btn-success']) !!}
