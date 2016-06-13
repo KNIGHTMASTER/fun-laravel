@@ -15,4 +15,7 @@ interface BaseModelKey
     const CODE          = 'code';
     const NAME          = 'name';
     const DESCRIPTION   = 'description';
+    const STATUS 		= 'status';
+    const TIMESTAMP		= 'timestamp';    
+    const AMOUNT		= 'amount';
 }

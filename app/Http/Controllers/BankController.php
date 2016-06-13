@@ -8,11 +8,11 @@
 namespace App\Http\Controllers;
 
 use App\ConstantValue\ApplicationConstant;
-use App\Http\Controllers\BaseScaffold\ABaseScaffold;
+use App\Http\Controllers\BaseScaffold\AdminController;
 use App\Model\ModelBank;
 use Illuminate\Http\Response;
 
-class BankController extends ABaseScaffold
+class BankController extends AdminController
 {
 
     public function getEntityName()

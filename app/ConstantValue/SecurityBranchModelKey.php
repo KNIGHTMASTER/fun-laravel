@@ -9,8 +9,12 @@
 namespace app\ConstantValue;
 
 
-interface SecurityBranchModelKey extends MerchandiseModelKey
+interface SecurityBranchModelKey extends BaseModelKey
 {
-    const SECURITY_BRANCH_MODEL_NAME    = 'security_branch';
-    const COMPANY_ID                    = 'company_id';
+    const BRANCH_ENTITY_NAME  = 'Branch';
+    const BRANCH_MODEL_NAME   = 'branch';
+    const BRANCH_INDEX_PAGE   = 'pages.master.branch.index';
+    const BRANCH_SHOW_PAGE    = 'pages.master.branch.show';
+    const BRANCH_CREATE_PAGE  = 'pages.master.branch.create';
+    const BRANCH_EDIT_PAGE    = 'pages.master.branch.edit';
 }

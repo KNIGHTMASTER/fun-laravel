@@ -9,6 +9,7 @@
                 </div>
                 {!! FORM::open(['url' => $entityBaseUrl]) !!}
                 <div class="box-body">
+                    @include('scaffold.validation.alert-error-layout')
                     @yield('create-content')
                 </div>
                 {!! FORM::close() !!}

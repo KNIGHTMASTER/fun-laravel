@@ -9,6 +9,7 @@
                 </div>
                 {!! Form::model($data,['method' => 'PATCH','route'=>[$entityBaseUrl.'.update',$data->id]]) !!}
                 <div class="box-body">
+                    @include('scaffold.validation.alert-error-layout')
                     @yield('edit-content')
                 </div>
                 {!! Form::close() !!}

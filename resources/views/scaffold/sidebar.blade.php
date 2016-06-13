@@ -12,7 +12,7 @@
                         </a>
                         <ul class="treeview-menu">
                             @foreach($menu['sub_menu'] as $assignment)
-                                <li><a href={{$assignment['function_url']}}><i class="{{$assignment['function_style']}}"></i>{{$assignment['name']}}</a></li>
+                                <li><a href={{URL::to($assignment['function_url'])}}><i class="{{$assignment['function_style']}}"></i>{{$assignment['name']}}</a></li>
                             @endforeach
                         </ul>
                     </li>

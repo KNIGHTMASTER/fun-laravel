@@ -149,6 +149,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Illuminate\Html\HtmlServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+        Cossou\JasperPHP\JasperPHPServiceProvider::class,
         
 
         /*
@@ -207,6 +208,7 @@ return [
         'HTML'      => Illuminate\Html\HtmlFacade::class,
         'FORM'      => Illuminate\Html\FormFacade::class,
         'SWA'       => UxWeb\SweetAlert\SweetAlert::class
+        'JasperPHP' => JasperPHP\Facades\JasperPHP::class;
     ],
 
 ];

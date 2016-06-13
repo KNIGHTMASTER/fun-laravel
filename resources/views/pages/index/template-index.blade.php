@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Fun Laravel</title>
+
     {!! HTML::style('css/bootstrap.min.css') !!}
     {!! HTML::style('css/AdminLTE.min.css') !!}
     {!! HTML::style('css/font-awesome/font-awesome.css') !!}
@@ -16,6 +17,7 @@
     {!! HTML::style('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') !!}
     {!! HTML::style('css/sweetalert/sweetalert.css') !!}
 
+    @yield('css')
     {{--<link rel="shortcut icon" href="{!! asset('favicon.ico') !!}">--}}
 </head>
 
@@ -39,7 +41,9 @@
 {!! HTML::script('plugins/jQuery/jQuery-2.1.4.min.js') !!}
         <!-- jQuery UI 1.11.4 -->
 {!! HTML::script('js/jquery-ui/jquery-ui.min.js') !!}
-        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+{!! HTML::script('js/jquery-ui/jquery.number.min.js')!!}
 <script>
     $.widget.bridge('uibutton', $.ui.button);
 </script>
@@ -76,5 +80,6 @@
 {!! HTML::script('js/sweetalert/sweetalert.min.js') !!}
 {!! HTML::script('js/laravel.js') !!}
 
+@yield('js')
 </body>
 </html>

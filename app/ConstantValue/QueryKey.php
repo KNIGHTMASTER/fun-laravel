@@ -13,4 +13,7 @@ interface QueryKey
 {
     const LIKE      = 'LIKE';
     const EQUALS    = '=';
+    const ASC 		= 'ASC';
+    const DESC 		= 'DESC';
+    const CREATED_BY = 'created_by';
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>.:FN:.</title>
+    <title>.:FL:.</title>
     {!! HTML::style('css/bootstrap.min.css') !!}
     {!! HTML::style('css/AdminLTE.min.css') !!}
     {!! HTML::style('css/font-awesome/font-awesome.css') !!}

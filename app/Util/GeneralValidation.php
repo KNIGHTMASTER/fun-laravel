@@ -13,4 +13,12 @@ class GeneralValidation
     public function getValidDateForInsertDatabase($p_Input){
         return date(ApplicationConstant::GENERIC_DATE_FORMAT, strtotime($p_Input));
     }
+
+    public function geValidDateForTimeStamp($p_Input){
+    	return date(ApplicationConstant::TIMESTAMP_DATE_FORMAT, strtotime($p_Input));
+    }
+
+    public function getSimpleNumericFormat($p_Input){
+    	return preg_replace("/[^0-9]/", '', $p_Input);
+    }
 }

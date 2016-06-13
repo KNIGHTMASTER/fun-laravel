@@ -1,6 +1,6 @@
 <header class="main-header">
     <!-- Logo -->
-    <a class="logo" href={!! URL::to('/bank') !!}>
+    <a class="logo" href={!! URL::to('/dashboard') !!}>
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>F</b>L</span>
         <!-- logo for regular state and mobile devices -->
@@ -21,38 +21,12 @@
                 <li class="dropdown user user-menu">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <div class="fa fa-user"></div>
-                        <span class="hidden-xs">Admin</span>
+                        <span class="hidden-xs">{{$userName}}</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <!-- User image -->
-                        <li class="user-header">
-                            <img alt="User Image" class="img-circle" src="../../dist/img/user2-160x160.jpg">
-                            <p>
-                                Alexander Pierce - Web Developer
-                                <small>Member since Nov. 2012</small>
-                            </p>
-                        </li>
-                        <!-- Menu Body -->
                         <li class="user-body">
-                            <div class="col-xs-4 text-center">
-                                <a href="#">Followers</a>
-                            </div>
-                            <div class="col-xs-4 text-center">
-                                <a href="#">Sales</a>
-                            </div>
-                            <div class="col-xs-4 text-center">
-                                <a href="#">Friends</a>
-                            </div>
-                        </li>
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a class="btn btn-default btn-flat" href="#">Profile</a>
-                            </div>
-                            <div class="pull-right">
-                                <a class="btn btn-default btn-flat" href="#">Sign out</a>
-                            </div>
-                        </li>
+                            <a class="btn btn-flat" href="{{URL::to('/auth/logout')}}">Sign out</a>
+                        </li>                     
                     </ul>
                 </li>
                 <!-- Control Sidebar Toggle Button -->

@@ -17,9 +17,15 @@
                             <td>{{$data->$field}}</td>
                         @endforeach
                         <td class="text-center">
-                            <a id="oke" href="{{URL::to($entityBaseUrl, $data->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                            <a href="{{URL::to($entityBaseUrl.'/'.$data->id.'/edit')}}" class="btn btn-warning"><i class="fa fa-pencil-square-o"></i></a>
-                            <button id="delete"  value="{{$entityBaseUrl}}.{{$data->id}}" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                            @if ($tableAction['show'] == 1)
+                                <a id="oke" href="{{URL::to($entityBaseUrl, $data->id)}}" class="btn btn-primary">  <i class="fa fa-eye"></i></a>                            
+                            @endif
+                            @if ($tableAction['edit'] == 1)
+                                <a href="{{URL::to($entityBaseUrl.'/'.$data->id.'/edit')}}" class="btn btn-warning"><i class="fa fa-pencil-square-o"></i></a>                        
+                            @endif                            
+                            @if ($tableAction['delete'] == 1)
+                                <button id="delete"  value="{{$entityBaseUrl}}.{{$data->id}}" class="btn btn-danger"><i class="fa fa-trash"></i></button>                            
+                            @endif                       
                         </td>
                     </tr>
                 @endforeach

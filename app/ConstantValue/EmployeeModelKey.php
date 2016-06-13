@@ -15,7 +15,6 @@ interface EmployeeModelKey
     const EMPLOYEE_ID           = 'employee_id';
     const USER_ID               = 'user_id';
     const EMPLOYEE_PARENT       = 'employee_parent';
-    const STATUS                = 'status';
     const CREATED_BY_USERNAME   = 'created_by_username';
     const CREATED_BY_ID         = 'created_by_id';
     const CREATED_ON            = 'created_on';

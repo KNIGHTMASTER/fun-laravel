@@ -27,7 +27,11 @@ use Illuminate\Support\Facades\Auth;
  * </p>
  * @package App\Http\Controllers
  */
-abstract class ABaseScaffold extends Controller implements IScaffoldView, IScaffoldAction, IScaffoldData, IFormValidator
+abstract class ABaseScaffold extends Controller implements 
+    IScaffoldView, 
+    IScaffoldAction, 
+    IScaffoldData, 
+    IFormValidator
 {
     protected $allData;
     protected $entityName;
@@ -39,23 +43,44 @@ abstract class ABaseScaffold extends Controller implements IScaffoldView, IScaff
     protected $sortableFields;
     private $menuGenerator;
     protected $menuList;
+    protected $userName;
+
+    /**
+     * 1 = enabled
+     * 0 = disabled
+     * 
+     * Enable/ Disable action button in Table 
+     * @var        array
+     */
+    protected $tableAction = ['show'=>1, 'edit'=>1, 'delete'=>1];
     
+    /**
+     * 1 = enabled
+     * 0 = disabled
+     * Enable/ Disable action button in Table Header
+     * @var        array
+     */
+    protected $headerAction = ['search'=>1, 'create'=>1];
 
     /**
      * ABaseScaffold constructor.
      */
     public function __construct()
-    {
+    {        
         $this->allData = $this->getAllData();
         $this->entityName = $this->getEntityName();
-        $this->entityBaseUrl = strtolower($this->entityName);
+        $this->entityBaseUrl = strtolower(str_replace(" ", "-", $this->entityName));
         $this->pageTitle = $this->getPageTitle();
         $this->pageSubTitle = $this->getPageSubTitle();
         $this->columnHeaders = $this->getColumnHeaders();
         $this->databaseFields = $this->getDatabaseFields();
         $this->sortableFields = $this->getSortableFields();
         $this->menuGenerator = new MenuGenerator();
-        $this->menuList = $this->menuGenerator->generateMenuResponse(Auth::user());
+        if (Auth::check()) {
+            $this->menuList = $this->menuGenerator->generateMenuResponse(Auth::user());
+            $this->userName = Auth::user()->name;
+        }
+        
     }
 
 
@@ -90,8 +115,7 @@ abstract class ABaseScaffold extends Controller implements IScaffoldView, IScaff
         }else{
             $dataUpdate = Request::all();
             $data = $this->getSingleData($id);
-            $dataUpdate = $this->getFormatValidation($dataUpdate);
-            print_r($data);
+            $dataUpdate = $this->getFormatValidation($dataUpdate);            
             $data->update($dataUpdate);
             return Redirect($this->entityBaseUrl);
         }
@@ -116,6 +140,9 @@ abstract class ABaseScaffold extends Controller implements IScaffoldView, IScaff
         $databaseFields = $this->databaseFields;
         $sortableFields = $this->sortableFields;
         $menuList = $this->menuList;
+        $userName = $this->userName;
+        $tableAction = $this->tableAction;
+        $headerAction = $this->headerAction;
         return view(
             $this->getIndexPage(),
             compact(
@@ -127,7 +154,10 @@ abstract class ABaseScaffold extends Controller implements IScaffoldView, IScaff
                 'sortableFields',
                 'entityName',
                 'entityBaseUrl',
-                'menuList'
+                'menuList',
+                'userName',
+                'tableAction',
+                'headerAction'
             )
         );
     }
@@ -139,6 +169,7 @@ abstract class ABaseScaffold extends Controller implements IScaffoldView, IScaff
         $pageTitle = $this->pageTitle;
         $pageSubTitle = $this->pageSubTitle;
         $menuList = $this->menuList;
+        $userName = $this->userName;
         return View::make(
             $this->getCreatePage(),
             compact(
@@ -146,7 +177,8 @@ abstract class ABaseScaffold extends Controller implements IScaffoldView, IScaff
                 'entityBaseUrl',
                 'pageTitle',
                 'pageSubTitle',
-                'menuList'
+                'menuList',
+                'userName'
             )
         );
     }
@@ -162,6 +194,7 @@ abstract class ABaseScaffold extends Controller implements IScaffoldView, IScaff
         $databaseFields = $this->databaseFields;
         $sortableFields = $this->sortableFields;
         $menuList = $this->menuList;
+        $userName = $this->userName;
         return view(
             $this->getIndexPage(),
             compact(
@@ -173,7 +206,8 @@ abstract class ABaseScaffold extends Controller implements IScaffoldView, IScaff
                 'sortableFields',
                 'entityName',
                 'entityBaseUrl',
-                'menuList'
+                'menuList',
+                'userName'
             )
         );
     }
@@ -186,7 +220,7 @@ abstract class ABaseScaffold extends Controller implements IScaffoldView, IScaff
         $pageTitle = $this->pageTitle;
         $pageSubTitle = $this->pageSubTitle;
         $menuList = $this->menuList;
-
+        $userName = $this->userName;
         return View::make(
             $this->getShowPage(),
             compact(
@@ -195,7 +229,8 @@ abstract class ABaseScaffold extends Controller implements IScaffoldView, IScaff
                 'pageTitle',
                 'entityName',
                 'entityBaseUrl',
-                'menuList'
+                'menuList',
+                'userName'
             )
         );
     }
@@ -208,7 +243,7 @@ abstract class ABaseScaffold extends Controller implements IScaffoldView, IScaff
         $entityName = $this->getEntityName();
         $entityBaseUrl = $this->entityBaseUrl;
         $menuList = $this->menuList;
-
+        $userName = $this->userName;
         return view(
             $this->getEditPage(),
             compact(
@@ -217,7 +252,8 @@ abstract class ABaseScaffold extends Controller implements IScaffoldView, IScaff
                 'pageSubTitle',
                 'entityName',
                 'entityBaseUrl',
-                'menuList'
+                'menuList',
+                'userName'
             )
         );
     }

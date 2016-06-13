@@ -38,7 +38,8 @@ class AuthController extends Controller {
      * @return void
      */
     public function __construct() {
-        $this->middleware('guest', ['except' => 'logout']);
+        //ori -> $this->middleware('guest', ['except' => 'logout']);
+        $this->middleware('guest', ['except' => 'getLogout']);
     }
 
     /**

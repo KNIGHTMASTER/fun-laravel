@@ -1,9 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Ladies Man
- * Date: 1/12/2016
- * Time: 11:06 AM
+ * @package App\ConstantValue
+ * @since 12/1/2016 - 11:16 AM
+ * @author <a href ="mailto:fauzi.knightmaster.achmad@gmail.com">Achmad Fauzi</a>
  */
 
 namespace App\ConstantValue;

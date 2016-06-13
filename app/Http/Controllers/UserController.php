@@ -9,13 +9,14 @@ namespace App\Http\Controllers;
 
 
 use App\ConstantValue\ApplicationConstant;
+use App\Http\Controllers\BaseScaffold\AdminController;
 use App\Http\Controllers\BaseScaffold\ABaseScaffold;
 use App\Http\Controllers\Lov\SecurityGroupLOV;
 use App\Model\ModelUser;
 use App\Util\GeneralValidation;
 use Illuminate\Support\Facades\View;
 
-class UserController extends ABaseScaffold
+class UserController extends AdminController
 {
 
     public function getEntityName()
@@ -43,14 +44,14 @@ class UserController extends ABaseScaffold
         ];
     }
 
-    public function getSortableFields()
+    /*public function getSortableFields()
     {
         return [
             ApplicationConstant::STRING_EMPTY => ApplicationConstant::STRING_EMPTY,
             ApplicationConstant::USER_CODE => ApplicationConstant::CODE,
             ApplicationConstant::NAME => ApplicationConstant::NAME
         ];
-    }
+    }*/
 
 
     function getStoreValidation()
@@ -114,72 +115,89 @@ class UserController extends ABaseScaffold
     }
 
     public function create()
-    {
-        $entityName = $this->entityName;
-        $entityBaseUrl = $this->entityBaseUrl;
-        $pageTitle = $this->pageTitle;
-        $pageSubTitle = $this->pageSubTitle;
-        $group = new SecurityGroupLOV();
-        $group = $group->generateLOV();
-        $menuList = $this->menuList;
-        return View::make(
-            $this->getCreatePage(),
-            compact(
-                'group',
-                'entityName',
-                'entityBaseUrl',
-                'pageTitle',
-                'pageSubTitle',
-                'menuList'
-            )
-        );
+    {           
+        if ($this->isAuthorized == 0){
+            $entityName = $this->entityName;
+            $entityBaseUrl = $this->entityBaseUrl;
+            $pageTitle = $this->pageTitle;
+            $pageSubTitle = $this->pageSubTitle;
+            $group = new SecurityGroupLOV();
+            $group = $group->generateLOV();
+            $menuList = $this->menuList;        
+            $userName = $this->userName;
+                return View::make(
+                $this->getCreatePage(),
+                compact(
+                    'group',
+                    'entityName',
+                    'entityBaseUrl',
+                    'pageTitle',
+                    'pageSubTitle',
+                    'menuList',
+                    'userName'
+                )
+            );
+        }else {
+            return parent::redirectUnAuthorized();
+        }
+        
     }
 
     public function show($id)
     {
-        $data = $this->getSingleData($id);
-        $entityName = $this->entityName;
-        $entityBaseUrl = $this->entityBaseUrl;
-        $pageTitle = $this->pageTitle;
-        $pageSubTitle = $this->pageSubTitle;
-        $securityGroupLOV = new SecurityGroupLOV();
-        $data->group_id = $securityGroupLOV->getValue($data->group_id);
-        $menuList = $this->menuList;
-        return View::make(
-            $this->getShowPage(),
-            compact(
-                'data',
-                'pageSubTitle',
-                'pageTitle',
-                'entityName',
-                'entityBaseUrl',
-                'menuList'
-            )
-        );
+        if ($this->isAuthorized == 0){
+            $data = $this->getSingleData($id);
+            $entityName = $this->entityName;
+            $entityBaseUrl = $this->entityBaseUrl;
+            $pageTitle = $this->pageTitle;
+            $pageSubTitle = $this->pageSubTitle;
+            $securityGroupLOV = new SecurityGroupLOV();
+            $data->group_id = $securityGroupLOV->getValue($data->group_id);
+            $menuList = $this->menuList;
+            $userName = $this->userName;
+            return View::make(
+                $this->getShowPage(),
+                compact(
+                    'data',
+                    'pageSubTitle',
+                    'pageTitle',
+                    'entityName',
+                    'entityBaseUrl',
+                    'menuList',
+                    'userName'
+                )
+            );
+        }else {
+            return parent::redirectUnAuthorized();
+        }
     }
 
     public function edit($id)
     {
-        $data = $this->getSingleData($id);
-        $pageTitle = $this->getPageTitle();
-        $pageSubTitle = $this->getPageSubTitle();
-        $entityName = $this->getEntityName();
-        $entityBaseUrl = $this->entityBaseUrl;
-        $group = new SecurityGroupLOV();
-        $group = $group->generateLOV();
-        $menuList = $this->menuList;
-        return view(
-            $this->getEditPage(),
-            compact(
-                'data',
-                'group',
-                'pageTitle',
-                'pageSubTitle',
-                'entityName',
-                'entityBaseUrl',
-                'menuList'
-            )
-        );
+        if ($this->isAuthorized == 0){
+            $data = $this->getSingleData($id);
+            $pageTitle = $this->getPageTitle();
+            $pageSubTitle = $this->getPageSubTitle();
+            $entityName = $this->getEntityName();
+            $entityBaseUrl = $this->entityBaseUrl;
+            $group = new SecurityGroupLOV();
+            $group = $group->generateLOV();
+            $menuList = $this->menuList;
+            $userName = $this->userName;
+            return view(
+                $this->getEditPage(),
+                compact(
+                    'data',
+                    'group',
+                    'pageTitle',
+                    'pageSubTitle',
+                    'entityName',
+                    'entityBaseUrl',
+                    'menuList',
+                    'userName'
+                )
+            );
+        }        
     }
 
     function getFormatValidation($p_Data)

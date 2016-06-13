@@ -10,7 +10,7 @@ namespace App\Http\Controllers;
 
 use App\ConstantValue\ApplicationConstant;
 use App\Http\Controllers\BaseRest\ARestController;
-use App\Http\Requests\Request;
+use Request;
 use App\Model\ModelBank;
 
 class RestBankController extends ARestController
@@ -98,7 +98,6 @@ class RestBankController extends ARestController
             $newData->code = $p_Entity[ApplicationConstant::CODE];
             $newData->name = $p_Entity[ApplicationConstant::NAME];
             $newData->description = $p_Entity[ApplicationConstant::DESCRIPTION];
-            $newData->mst_province = $p_Entity[ApplicationConstant::MST_PROVINCE];
             $newData->save();
             return response()->json($this->generateBaseSuccessResponse($p_Entity[ApplicationConstant::NAME]), $this->statusCode);
         }

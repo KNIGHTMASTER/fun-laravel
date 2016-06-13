@@ -21,6 +21,16 @@ interface ViewConstant
     const TABLE_COLUMN_EXPIRED_DATE = "Expired Date";
     const TABLE_COLUMN_LOGIN_STATUS = "Login Status";
 
+    /*EXPENSE*/
+    const TABLE_COLUMN_AMOUNT       = 'Amount';
+    const TABLE_COLUMN_TIMESTAMP    = 'Timestamp';
+    const TABLE_COLUMN_BANK_EXPENSE = 'Bank Expense';
+
     /*DATE*/
     const GENERIC_DATE_FORMAT       = 'Y-m-d';
+    const TIMESTAMP_DATE_FORMAT     = 'Y-m-d H:m:s';
+
+    /*MENU*/
+    const STYLE                     = 'style';
+    const SUB_MENU                  = 'sub_menu';
 }

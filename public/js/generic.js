@@ -1,3 +1,6 @@
+/*GLOBAL VARIABLES*/
+var sourceAmount = 0;
+
 /*Handling Delete Action on Table*/
 $('button#delete').on('click', function(){
     var dataId = $(this).attr('value');
@@ -35,12 +38,52 @@ function resetSearchDataTable(){
     window.location.pathname = searchUrl;
 }
 
+/*Search Data Table*/
 $('#txtSearchDataTable').keypress(function(e){
     if(e.which == 13) {
         searchDataTable();
     }
 });
 
+/*Date Picker*/
 $('#datePicker').datepicker({
     format: 'dd-mm-yyyy'
 });
+
+/*Get Expense Source on Change LOV*/
+$('#expense_source').change(function(){        
+    var idExpenseSource = document.getElementById("expense_source").value;        
+    $.get('/fun-laravel/public/saving/select/'+idExpenseSource, function(e){        
+        $('#lblSourceValue').css("visibility", "visible");
+        sourceAmount = e;
+        $('#lblSourceValue').html('IDR. '+thousandSeparator(e));
+    });
+});
+
+$('#amount').focus(function(){
+    document.getElementById("amount").value = '';
+});
+
+/*Thousand Separator for Amount Text Field*/
+$('#amount').change(function(){
+    var currentValue = document.getElementById("amount").value;    
+    document.getElementById("amount").value = 'IDR. '+thousandSeparator(currentValue);    
+    if (sourceAmount == 0){
+        sourceAmount = document.getElementById("lblSourceValue").textContent;
+    }
+    // console.log("current value : "+currentValue);    
+    // console.log("source Amount : "+sourceAmount);
+    if (parseFloat(currentValue) > parseFloat(sourceAmount)){
+        alert('Expense amount can not be bigger than source amount');
+        document.getElementById("amount").value = '';
+        document.getElementById("amount").focus();
+        document.getElementById("amount").select();
+    }else{
+        //do nothing
+    }
+});
+
+/*Thousand Separator using JQuery Number*/
+function thousandSeparator(p_Data){    
+    return $.number(p_Data);
+}

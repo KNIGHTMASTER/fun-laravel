@@ -1,8 +1,5 @@
 @extends('scaffold.create-layout')
 @section('create-content')
-
-    @include('scaffold.validation.validation-layout')
-
     <div class="form-group">
         {!! FORM::label('code', 'Code :') !!}
         {!! FORM::text('code', null, ['class'=>'form-control', 'placeholder'=>'Enter Code']) !!}

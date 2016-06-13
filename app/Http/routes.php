@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Routes File
@@ -12,13 +13,20 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('auth/login');
 });
 
 Route::get('/greeting', function () {
     return view('greeting', ['name' => 'Fun-Laravel']);
 });
 
+/*Route::get('unauthorized', function () {
+    return view('errors/unauthorized-access');
+});*/
+
+Route::get('unauthorized', ['as' => 'unauthorized', function () {
+    return view('errors/unauthorized-access');
+}]);
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -39,12 +47,17 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
+
+Route::get('/sendmail', 'MailController@index');
+Route::post('/sendmail', 'MailController@post');
+
 /*Admin Routes*/
 Route::group(['middleware' => 'auth'], function () {
 
+
     Route::get('home', 'HomeController@init');
     Route::get('dashboard', 'HomeController@dashboard');
-
+    
     /**
      * Routes for Bank Data
      */
@@ -72,6 +85,49 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('company', 'CompanyController');
     Route::get('company/{id}/destroy', 'CompanyController@destroy');
     Route::get('company/search/{p_SearchField}/{p_SearchKey}', 'CompanyController@search');
+    
+    /**
+     * Routes for Branch Data
+     */
+    Route::resource('branch', 'BranchController');
+    Route::get('branch/{id}/destroy', 'BranchController@destroy');
+    Route::get('branch/search/{p_SearchField}/{p_SearchKey}', 'BranchController@search');
+
+    /**
+     * Routes for Expense
+     */
+    Route::resource('expense', 'ExpenseController');
+    Route::get('expense/{id}/destroy', 'ExpenseController@destroy');
+    Route::get('expense/search/{p_SearchField}/{p_SearchKey}', 'ExpenseController@search');
+
+    /**
+     * Routes for Income
+     */
+    Route::resource('income', 'IncomeController');
+    Route::get('income/{id}/destroy', 'IncomeController@destroy');
+    Route::get('income/search/{p_SearchField}/{p_SearchKey}', 'IncomeController@search');
+
+    /**
+     * Routes for Saving
+     */
+    Route::resource('saving', 'SavingController');
+    Route::get('saving/{id}/destroy', 'SavingController@destroy');
+    Route::get('saving/search/{p_SearchField}/{p_SearchKey}', 'SavingController@search');
+    Route::get('saving/all', 'SavingController@selectAll');
+    Route::get('saving/select/{id}', 'SavingController@selectById');
+
+    /**
+     * Routes for Saving History
+     */
+    Route::resource('saving-history', 'SavingHistoryController');
+    Route::get('saving-history/{id}/destroy', 'SavingHistoryController@destroy');
+    Route::get('saving-history/search/{p_SearchField}/{p_SearchKey}', 'SavingHistoryController@search');
+
+    /**
+     * Routes for Report Master Bank
+     */
+    Route::get('/report-bank', ['uses' =>'ReportBankController@index', 'as' => 'ReportBank']);
+    Route::post('/report-bank', ['uses' =>'ReportBankController@post']);
 });
 
 

@@ -1,6 +1,5 @@
 @extends('scaffold.edit-layout')
-@section('edit-content')
-    @include('scaffold.validation.validation-layout')
+@section('edit-content')    
     <div class="form-group">
         {!! FORM::label('code', 'Code :') !!}
         {!! FORM::text('code', null, ['class'=>'form-control', 'placeholder'=>$data->code]) !!}

@@ -35,7 +35,7 @@ class HomeController extends Controller{
         $menuList = $menuGenerator->generateMenuResponse($this->currentUserLogin);
         return View::make('pages.dashboard')->with(
             array(
-                'userName' => $this->currentUserLogin->name, 
+                'userName' => $this->currentUserLogin->name,
                 'menuList' => $menuList)
             );
     }

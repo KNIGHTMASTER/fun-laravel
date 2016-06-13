@@ -3,6 +3,7 @@
     <div class="login-logo">
         <a href="{{URL::to('/auth/login')}}">Fun Laravel</a>
     </div>
+    
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
 

@@ -28,24 +28,54 @@ class MenuGenerator
         $loginResponse->setMessage($baseResponse->getMessage());
         $loginResponse->setDescription($baseResponse->getDescription());
 
-        $sfa = ModelFunctionAssignment::where(ApplicationConstant::GROUP_ID, ApplicationConstant::EQUALS, $loginResponse->getGroupId())->orderBy('function_assigment_order', 'ASC')->get();
-        foreach ($sfa as $explodeData){
-            $sf = ModelFunction::where(ApplicationConstant::ID, ApplicationConstant::EQUALS, $explodeData[ApplicationConstant::FUNCTION_ID])->get();
+        $sfa = null;
+        if ($loginResponse->getGroupId() == 1){
+            $sfa = ModelFunctionAssignment::where(ApplicationConstant::STATUS, ApplicationConstant::EQUALS, 1)->orderBy('function_assigment_order', 'ASC')->get();
+        }else{
+            $sfa = ModelFunctionAssignment::where(ApplicationConstant::GROUP_ID, ApplicationConstant::EQUALS, $loginResponse->getGroupId())->orderBy('function_assigment_order', 'ASC')->get();
+        }
+
+        $assignedData = array();
+        foreach ($sfa as $explodeData){            
+            $sf = ModelFunction::where(ApplicationConstant::ID, ApplicationConstant::EQUALS, $explodeData[ApplicationConstant::FUNCTION_ID])->get();            
             foreach ($sf as $subExplodedData){
-                $parentData = ModelFunction::where(ApplicationConstant::FUNCTION_PARENT_ID, ApplicationConstant::EQUALS, $subExplodedData->id)->get();
-                $response[] = [
+                $subMenu = ModelFunction::where(ApplicationConstant::FUNCTION_PARENT_ID, ApplicationConstant::EQUALS, $subExplodedData->id)->get();                                
+                                            
+                foreach ($subMenu as $subMenuCheck) {
+                    $isAssigned = ModelFunctionAssignment::where(ApplicationConstant::FUNCTION_ID, ApplicationConstant::EQUALS, $subMenuCheck[ApplicationConstant::ID])->get();                        
+                    foreach ($isAssigned as $assigned) {                        
+                        if ($assigned->group_id != 1){
+                            $assignedData[] = $subMenuCheck;
+                        }
+                    }
+                }
+                if ($loginResponse->getGroupId() != 1){
+$response[] = [
                     ApplicationConstant::CODE => $subExplodedData->code,
                     ApplicationConstant::NAME => $subExplodedData->name,
                     ApplicationConstant::LINK => $subExplodedData->function_url,
-                    'style' => $subExplodedData->function_style,
+                    ApplicationConstant::STYLE => $subExplodedData->function_style,
                     ApplicationConstant::ORDER => $subExplodedData->function_order,
                     ApplicationConstant::LEVEL => $subExplodedData->function_level,
                     ApplicationConstant::PARENT => $subExplodedData->function_parent_id,
-                    'sub_menu' => $parentData
+                    ApplicationConstant::SUB_MENU => $assignedData
                 ];
+                }else{
+                    $response[] = [
+                    ApplicationConstant::CODE => $subExplodedData->code,
+                    ApplicationConstant::NAME => $subExplodedData->name,
+                    ApplicationConstant::LINK => $subExplodedData->function_url,
+                    ApplicationConstant::STYLE => $subExplodedData->function_style,
+                    ApplicationConstant::ORDER => $subExplodedData->function_order,
+                    ApplicationConstant::LEVEL => $subExplodedData->function_level,
+                    ApplicationConstant::PARENT => $subExplodedData->function_parent_id,
+                    ApplicationConstant::SUB_MENU => $subMenu
+                ];
+                }
+                $assignedData = array();                
             }
         }
-        $loginResponse->setItem($response);        
+        $loginResponse->setItem($response);
         //print(response()->json($loginResponse));
         return $loginResponse;
     }

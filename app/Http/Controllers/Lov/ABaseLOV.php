@@ -13,11 +13,11 @@ abstract class ABaseLOV implements ILOV
     {
         $data = $this->populateData();
         $result = collect();
+        $result->prepend(null, null);        
         foreach ($data as $item)
-        {
+        {                        
             $result[$item->id] = $item->name;
-        }
-        $result->prepend(null, null);
+        }        
         return $result;
     }
 
@@ -28,9 +28,14 @@ abstract class ABaseLOV implements ILOV
     }
 
     public function getKey($p_Value)
-    {
-        $data = collect($this->generateLOV());
-        return $data->has($p_Value);
+    {        
+        $data = collect($this->generateLOV());        
+        $filtered = $data->filter(function ($p_Value) {
+            return $item = $p_Value;
+        });                
+        //$filtered = array_search($p_Value, $data->toArray());
+        //print_r($filtered);
+        return $filtered->all();  
     }
 
 
