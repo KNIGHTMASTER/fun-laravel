@@ -82,7 +82,7 @@ class ExpenseController extends ABaseScaffold{
             $userName = $this->userName;
             $bankLOV = new BankLOV();
             $savingLOV = new SavingLOV();            
-            $data->bank = $bankLOV->getValue($data->bank_expense);            
+            $data->bank = $bankLOV->getValue($data->bank_expense);
             $savingController = new SavingController();        
             $sourceValue = $savingController->selectById($data->expense_source);        
             $data->expense_source = $savingLOV->getValue($data->expense_source);

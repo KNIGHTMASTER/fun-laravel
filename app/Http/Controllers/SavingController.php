@@ -17,7 +17,9 @@ use App\Util\GeneralConverter;
 class SavingController extends ABaseScaffold
 {
 
-    protected $tableAction = ['show'=>1, 'edit'=>0, 'delete'=>0];
+    protected $tableAction = ['show'=>0, 'edit'=>0, 'delete'=>0];
+    protected $headerAction = ['search'=>1, 'create'=>0];
+    protected $actionColumnHeader = 0;
 
     public function selectAll(){
         $result = ModelSaving::all();

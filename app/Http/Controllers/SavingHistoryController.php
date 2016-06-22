@@ -19,6 +19,30 @@ class SavingHistoryController extends ABaseScaffold
 
     protected $headerAction = ['search'=>1, 'create'=>0];
 
+    public function getColumnHeaders()
+    {
+        return [
+            ApplicationConstant::SIMPLE_HEADER_ID,
+            ApplicationConstant::SIMPLE_HEADER_CODE,
+            ApplicationConstant::SIMPLE_HEADER_NAME,
+            ApplicationConstant::AMOUNT,
+            ApplicationConstant::TRX_TYPE,
+            ApplicationConstant::SIMPLE_HEADER_DESCRIPTION
+        ];
+    }
+
+    public function getDatabaseFields()
+    {
+        return [
+            ApplicationConstant::ID,
+            ApplicationConstant::CODE,
+            ApplicationConstant::NAME,
+            ApplicationConstant::AMOUNT,
+            ApplicationConstant::TRX_TYPE,           
+            ApplicationConstant::DESCRIPTION
+        ];
+    }
+
     public function getEntityName()
     {
         return ApplicationConstant::SAVING_HISTORY_ENTITY_NAME;

@@ -6,7 +6,7 @@
             @if ($menu['parent'] == 0)
                 @if (count($menu['sub_menu']))
                     <li class="treeview">
-                        <a href={{$menu['link']}}>
+                        <a href={{URL::to($menu['link'])}}>
                             <i class="{{$menu['style']}}"></i> <span>{{$menu['name']}}</span>
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
@@ -18,7 +18,7 @@
                     </li>
                 @else
                     <li>
-                        <a href={{$menu['link']}}> <i class="{{$menu['style']}}"></i> <span>{{$menu['name']}}</span></a>
+                        <a href={{URL::to($menu['link'])}}> <i class="{{$menu['style']}}"></i> <span>{{$menu['name']}}</span></a>
                     </li>
                 @endif
             @endif

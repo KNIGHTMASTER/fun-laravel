@@ -28,7 +28,7 @@ interface ViewConstant
 
     /*DATE*/
     const GENERIC_DATE_FORMAT       = 'Y-m-d';
-    const TIMESTAMP_DATE_FORMAT     = 'Y-m-d H:m:s';
+    const TIMESTAMP_DATE_FORMAT     = 'Y-m-d H:i:s';
 
     /*MENU*/
     const STYLE                     = 'style';

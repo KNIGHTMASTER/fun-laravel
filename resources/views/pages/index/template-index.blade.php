@@ -50,7 +50,7 @@
 <!-- Bootstrap 3.3.5 -->
 {!! HTML::script('js/bootstrap.min.js') !!}
         <!-- Morris.js charts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script> -->
 {!! HTML::script('plugins/morris/morris.min.js') !!}
         <!-- Sparkline -->
 {!! HTML::script('plugins/sparkline/jquery.sparkline.min.js') !!}
@@ -61,7 +61,7 @@
         <!-- jQuery Knob Chart -->
 {!! HTML::script('plugins/knob/jquery.knob.js') !!}
         <!-- daterangepicker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script> -->
 {!! HTML::script('plugins/daterangepicker/daterangepicker.js') !!}
         <!-- datepicker -->
 {!! HTML::script('plugins/datepicker/bootstrap-datepicker.js') !!}

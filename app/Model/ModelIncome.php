@@ -21,6 +21,8 @@ class ModelIncome extends Model
     protected $fillable = array(
         ApplicationConstant::CODE,
         ApplicationConstant::NAME,
+        ApplicationConstant::AMOUNT,
+        ApplicationConstant::BANK_INCOME,
         ApplicationConstant::DESCRIPTION
     );
 

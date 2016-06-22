@@ -128,6 +128,9 @@ Route::group(['middleware' => 'auth'], function () {
      */
     Route::get('/report-bank', ['uses' =>'ReportBankController@index', 'as' => 'ReportBank']);
     Route::post('/report-bank', ['uses' =>'ReportBankController@post']);
+
+    Route::get('/report-company', ['uses' =>'ReportCompanyController@index', 'as' => 'ReportCompany']);
+    Route::post('/report-company', ['uses' =>'ReportCompanyController@post']);
 });
 
 

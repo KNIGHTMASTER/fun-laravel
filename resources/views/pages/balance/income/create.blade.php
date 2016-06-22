@@ -9,6 +9,14 @@
         {!! FORM::text('name', null, ['class'=>'form-control', 'placeholder'=>'Enter Name']) !!}
     </div>
     <div class="form-group">
+        {!! Form::label('bank_income', 'Bank Source :') !!}
+        {!! Form::select('bank_income', $bank, null, ['class' => 'form-control']) !!}        
+    </div>
+    <div class="form-group">
+        {!! FORM::label('amount', 'Amount :') !!}
+        {!! FORM::text('amount', null, ['class'=>'form-control', 'placeholder'=>'Enter Amount']) !!}
+    </div>
+    <div class="form-group">
         {!! FORM::label('description', 'Description :') !!}
         {!! FORM::textarea('description', null, ['size' => '30x5', 'class'=>'form-control', 'placeholder'=>'Enter Description']) !!}
     </div>

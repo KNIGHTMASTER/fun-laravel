@@ -63,6 +63,12 @@ abstract class ABaseScaffold extends Controller implements
     protected $headerAction = ['search'=>1, 'create'=>1];
 
     /**
+     * Enable/ Disable action header in table
+     * @var        integer
+     */
+    protected $actionColumnHeader = 1;
+
+    /**
      * ABaseScaffold constructor.
      */
     public function __construct()
@@ -75,7 +81,7 @@ abstract class ABaseScaffold extends Controller implements
         $this->columnHeaders = $this->getColumnHeaders();
         $this->databaseFields = $this->getDatabaseFields();
         $this->sortableFields = $this->getSortableFields();
-        $this->menuGenerator = new MenuGenerator();
+        $this->menuGenerator = new MenuGenerator();        
         if (Auth::check()) {
             $this->menuList = $this->menuGenerator->generateMenuResponse(Auth::user());
             $this->userName = Auth::user()->name;
@@ -143,6 +149,7 @@ abstract class ABaseScaffold extends Controller implements
         $userName = $this->userName;
         $tableAction = $this->tableAction;
         $headerAction = $this->headerAction;
+        $actionColumnHeader = $this->actionColumnHeader;
         return view(
             $this->getIndexPage(),
             compact(
@@ -157,7 +164,8 @@ abstract class ABaseScaffold extends Controller implements
                 'menuList',
                 'userName',
                 'tableAction',
-                'headerAction'
+                'headerAction',
+                'actionColumnHeader'
             )
         );
     }

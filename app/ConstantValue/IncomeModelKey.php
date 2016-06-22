@@ -12,6 +12,7 @@ interface IncomeModelKey extends BaseModelKey
 {
     const INCOME_ENTITY_NAME  = 'Income';
     const INCOME_MODEL_NAME   = 'income';
+    const BANK_INCOME		  = 'bank_income';
     const INCOME_INDEX_PAGE   = 'pages.balance.income.index';
     const INCOME_SHOW_PAGE    = 'pages.balance.income.show';
     const INCOME_CREATE_PAGE  = 'pages.balance.income.create';

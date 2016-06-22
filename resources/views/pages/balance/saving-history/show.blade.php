@@ -9,6 +9,14 @@
         {!! FORM::text('name', $data->name, ['class'=>'form-control', 'readonly'=>'true']) !!}
     </div>
     <div class="form-group">
+        {!! FORM::label('amount', 'Amount') !!}
+        {!! FORM::text('amount', $data->amount, ['class'=>'form-control', 'readonly'=>'true']) !!}
+    </div>
+    <div class="form-group">
+        {!! FORM::label('trx_type', 'Transaction Type') !!}
+        {!! FORM::text('trx_type', $data->trx_type, ['class'=>'form-control', 'readonly'=>'true']) !!}
+    </div>
+    <div class="form-group">
         {!! FORM::label('description', 'Description') !!}
         {!! FORM::textarea('description', $data->description, ['size' => '30x5', 'class'=>'form-control', 'readonly'=>'true']) !!}
     </div>

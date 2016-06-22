@@ -5,7 +5,9 @@
             @foreach($columnHeaders as $header)
                 <th>{{ $header }}</th>
             @endforeach
-            <th class="text-center">Action</th>
+            @if ($actionColumnHeader == 1)
+                <th class="text-center">Action</th>
+            @endif
         </tr>
         </thead>
         <tbody>
