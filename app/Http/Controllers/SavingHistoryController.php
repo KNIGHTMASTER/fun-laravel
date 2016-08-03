@@ -15,7 +15,7 @@ use Illuminate\Http\Response;
 class SavingHistoryController extends ABaseScaffold
 {
 
-    protected $tableAction = ['show'=>1, 'edit'=>0, 'delete'=>0];
+    protected $tableAction = ['show'=>1, 'edit'=>0, 'delete'=>1];
 
     protected $headerAction = ['search'=>1, 'create'=>0];
 
@@ -25,8 +25,8 @@ class SavingHistoryController extends ABaseScaffold
             ApplicationConstant::SIMPLE_HEADER_ID,
             ApplicationConstant::SIMPLE_HEADER_CODE,
             ApplicationConstant::SIMPLE_HEADER_NAME,
-            ApplicationConstant::AMOUNT,
-            ApplicationConstant::TRX_TYPE,
+            ApplicationConstant::AMOUNT_F_CAPS,
+            ApplicationConstant::TRANSACTION_TYPE,
             ApplicationConstant::SIMPLE_HEADER_DESCRIPTION
         ];
     }
@@ -38,7 +38,7 @@ class SavingHistoryController extends ABaseScaffold
             ApplicationConstant::CODE,
             ApplicationConstant::NAME,
             ApplicationConstant::AMOUNT,
-            ApplicationConstant::TRX_TYPE,           
+            ApplicationConstant::TRX_TYPE,
             ApplicationConstant::DESCRIPTION
         ];
     }

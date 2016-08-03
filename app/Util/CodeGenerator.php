@@ -10,29 +10,28 @@ class CodeGenerator{
  	 * { Create a random string }
  	 *
  	 * @param      integer  $length  The length
- 	 *
+ 	 * @param      $existingCode
  	 * @return     string   ( description_of_the_return_value )
  	*/
 	public function generate($length = 6, $existingCode) {
-		$str = "";
+		$result = "";
 		$characters = array_merge(range('A','Z'), range('a','z'), range('0','9'));
 		$max = count($characters) - 1;
 		for ($i = 0; $i < $length; $i++) {
 			$rand = mt_rand(0, $max);
-			$str .= $characters[$rand];
+			$result .= $characters[$rand];
 		}
-		if (strlen($str) == 0 || is_null($str)){
-					generate(6, $existingCode);
-					break;
+		if (strlen($result) == 0 || is_null($result) || empty($result)){
+			$this->generate(6, $existingCode);
 		}else {
 			foreach ($existingCode as $key => $value) {
-				if ($value[ApplicationConstant::CODE] == $str ){
+				if ($value[ApplicationConstant::CODE] == $result ){
 					$this->generate(6, $existingCode);
 					break;
 				}					
 			}
 		}
-		return $str;
+		return $result;
 	}
 
 }

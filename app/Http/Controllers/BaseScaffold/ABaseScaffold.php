@@ -40,10 +40,11 @@ abstract class ABaseScaffold extends Controller implements
     protected $pageSubTitle;
     protected $columnHeaders;
     protected $databaseFields;
-    protected $sortableFields;
-    private $menuGenerator;
+    protected $sortableFields;    
     protected $menuList;
     protected $userName;
+
+    private $menuGenerator;
 
     /**
      * 1 = enabled
@@ -203,6 +204,9 @@ abstract class ABaseScaffold extends Controller implements
         $sortableFields = $this->sortableFields;
         $menuList = $this->menuList;
         $userName = $this->userName;
+        $actionColumnHeader = $this->actionColumnHeader;
+        $tableAction = $this->tableAction;
+        $headerAction = $this->headerAction;
         return view(
             $this->getIndexPage(),
             compact(
@@ -215,7 +219,10 @@ abstract class ABaseScaffold extends Controller implements
                 'entityName',
                 'entityBaseUrl',
                 'menuList',
-                'userName'
+                'userName',
+                'actionColumnHeader',
+                'tableAction',
+                'headerAction'
             )
         );
     }

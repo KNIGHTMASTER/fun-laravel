@@ -16,6 +16,7 @@
     {!! HTML::style('plugins/daterangepicker/daterangepicker-bs3.css') !!}
     {!! HTML::style('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') !!}
     {!! HTML::style('css/sweetalert/sweetalert.css') !!}
+    {!! HTML::style('css/jquery-datetime/jquery.datetimepicker.css') !!}
 
     @yield('css')
     {{--<link rel="shortcut icon" href="{!! asset('favicon.ico') !!}">--}}
@@ -36,7 +37,7 @@
         @include('scaffold.footer')
     </footer>
 </div>
-
+{!! HTML::script('js/jquery-3.0.0.min.js') !!}
 {!! HTML::script('js/generic.js') !!}
 {!! HTML::script('plugins/jQuery/jQuery-2.1.4.min.js') !!}
         <!-- jQuery UI 1.11.4 -->
@@ -79,6 +80,8 @@
 {!! HTML::script('js/demo.js') !!}
 {!! HTML::script('js/sweetalert/sweetalert.min.js') !!}
 {!! HTML::script('js/laravel.js') !!}
+{!! HTML::script('js/jquery-datetime/jquery.datetimepicker.full.min.js') !!}
+
 
 @yield('js')
 </body>

@@ -3,7 +3,7 @@
     <div class="login-logo">
         <a href="{{URL::to('/auth/login')}}">Fun Laravel</a>
     </div>
-    
+    @include('scaffold.validation.alert-error-layout')
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
 

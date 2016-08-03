@@ -127,10 +127,16 @@ Route::group(['middleware' => 'auth'], function () {
      * Routes for Report Master Bank
      */
     Route::get('/report-bank', ['uses' =>'ReportBankController@index', 'as' => 'ReportBank']);
-    Route::post('/report-bank', ['uses' =>'ReportBankController@post']);
+    Route::post('/report-bank-pdf', ['uses' =>'ReportBankController@createPDFReport']);
+    Route::post('/report-bank-xls', ['uses' =>'ReportBankController@createEXCELReport']);
 
     Route::get('/report-company', ['uses' =>'ReportCompanyController@index', 'as' => 'ReportCompany']);
-    Route::post('/report-company', ['uses' =>'ReportCompanyController@post']);
+    Route::post('/report-company-pdf', ['uses' =>'ReportCompanyController@createPDFReport']);
+    Route::post('/report-company-xls', ['uses' =>'ReportCompanyController@createEXCELReport']);
+
+    Route::get('/report-expense', ['uses' =>'ReportExpenseController@index', 'as' => 'ReportExpense']);
+    Route::post('/report-expense-pdf', ['uses' =>'ReportExpenseController@createPDFReport']);
+    Route::post('/report-expense-xls', ['uses' =>'ReportExpenseController@createEXCELReport']);
 });
 
 

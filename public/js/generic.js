@@ -46,26 +46,65 @@ $('#txtSearchDataTable').keypress(function(e){
 });
 
 /*Date Picker*/
-$('#datePicker').datepicker({
-    format: 'dd-mm-yyyy'
+//$.datetimepicker.setLocale('en');
+$('#datePicker').datetimepicker({
+    showOn: "button",
+    showSecond: true,
+    dateFormat: "dd-mm-yy",
+    timeFormat: "HH:mm:ss"
 });
+
+$('#datePicker2').datetimepicker({
+    showOn: "button",
+    showSecond: true,
+    dateFormat: "dd-mm-yy",
+    timeFormat: "HH:mm:ss"
+});
+
+
+
+function displayTime() {
+    var str = "";
+
+    var currentTime = new Date()
+    var hours = currentTime.getHours()
+    var minutes = currentTime.getMinutes()
+    var seconds = currentTime.getSeconds()
+
+    if (minutes < 10) {
+        minutes = "0" + minutes
+    }
+    if (seconds < 10) {
+        seconds = "0" + seconds
+    }
+    str += hours + ":" + minutes + ":" + seconds + " ";
+    if(hours > 11){
+        str += "PM"
+    } else {
+        str += "AM"
+    }
+    return str;
+}
+
 
 /*Get Expense Source on Change LOV*/
 $('#expense_source').change(function(){        
     var idExpenseSource = document.getElementById("expense_source").value;        
-    $.get('/fun-laravel/public/saving/select/'+idExpenseSource, function(e){        
-        $('#lblSourceValue').css("visibility", "visible");
+    $.get('/fun-laravel/public/saving/select/'+idExpenseSource, function(e){
+        var lblSourceValue = $('#lblSourceValue');
+        lblSourceValue.css("visibility", "visible");
         sourceAmount = e;
-        $('#lblSourceValue').html('IDR. '+thousandSeparator(e));
+        lblSourceValue.html('IDR. '+thousandSeparator(e));
     });
 });
 
-$('#amount').focus(function(){
+var amount = $('#amount');
+amount.focus(function(){
     document.getElementById("amount").value = '';
 });
 
 /*Thousand Separator for Amount Text Field*/
-$('#amount').change(function(){
+amount.change(function(){
     var currentValue = document.getElementById("amount").value;    
     document.getElementById("amount").value = 'IDR. '+thousandSeparator(currentValue);    
     if (sourceAmount == 0){

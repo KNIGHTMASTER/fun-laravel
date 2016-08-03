@@ -3,8 +3,8 @@
     <div class="col-md-3 center">
 		<div class="box box-primary">
         	<div class="box-body box-profile ">
-            	<img alt="User profile picture" src={{URL::asset('img/fauzi.jpg')}} class="profile-user-img img-responsive img-circle">
-				<h3 class="profile-username text-center">{{$userName}}</h3>
+            	<img alt="User profile picture" src={{URL::asset($userImage)}} class="profile-user-img img-responsive img-circle">
+				<h3 class="profile-username text-center">{{$userName}}</h3>                
                 <p class="text-muted text-center">Software Engineer</p>
 
                 <ul class="list-group list-group-unbordered">

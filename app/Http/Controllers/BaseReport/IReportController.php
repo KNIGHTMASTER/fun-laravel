@@ -21,4 +21,6 @@ interface IReportController{
     public function getRedirectPage();
 
     public function getOutputName();    
+
+    public function getReportParameter();
 }

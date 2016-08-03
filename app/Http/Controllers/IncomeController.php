@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 use App\ConstantValue\ApplicationConstant;
 use App\Http\Controllers\BaseScaffold\ABaseScaffold;
 use App\Model\ModelIncome;
+use App\Util\CodeGenerator;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
@@ -68,7 +69,10 @@ class IncomeController extends ABaseScaffold
             $dataIncome = Request::all();
             //print(response()->json($dataIncome));            
             $dataIncome = $this->getFormatValidation($dataIncome);                    
-            //print(response()->json($dataIncome));            
+            //print(response()->json($dataIncome));
+            $codeGenerator = new CodeGenerator();
+            $codeResult = $codeGenerator->generate(6, ModelIncome::all());
+            $dataIncome[ApplicationConstant::CODE] = $codeResult;
             $totalLastIncome = 0;
             try{
                 DB::beginTransaction();
@@ -77,15 +81,15 @@ class IncomeController extends ABaseScaffold
 
                 $lastIncome = ModelIncome::orderBy(ApplicationConstant::TIMESTAMP, ApplicationConstant::DESC)->first();
                 DB::beginTransaction();
-                $lastIncomeValue = ModelSaving::where(ApplicationConstant::BANK_SAVING, ApplicationConstant::EQUALS, $dataIncome[ApplicationConstant::BANK_INCOME])->first();                
+                $lastIncomeValue = ModelSaving::where(ApplicationConstant::BANK_SAVING, ApplicationConstant::EQUALS, $dataIncome[ApplicationConstant::BANK_INCOME])->first();
                 $totalLastIncome += $lastIncomeValue->amount;
                 $totalLastIncome += $dataIncome[ApplicationConstant::AMOUNT];
                 $lastIncomeValue->update([ApplicationConstant::AMOUNT=>$totalLastIncome]);
 
                 //Save to Saving History
-                $lastIncomeValue->amount = $dataIncome[ApplicationConstant::AMOUNT];                
+                $lastIncomeValue->amount = $dataIncome[ApplicationConstant::AMOUNT];
                 $lastIncomeValue->name = $dataIncome[ApplicationConstant::NAME];
-                $lastIncomeValue->description = $dataIncome[ApplicationConstant::DESCRIPTION]; 
+                $lastIncomeValue->description = $dataIncome[ApplicationConstant::DESCRIPTION];
                 $lastIncomeValue->code = $dataIncome[ApplicationConstant::CODE];
                 $lastIncomeValue->bank_saving = $dataIncome[ApplicationConstant::BANK_INCOME];
                 $lastIncomeValue->trx_type = 1;
@@ -101,6 +105,14 @@ class IncomeController extends ABaseScaffold
              Session::flash('message', 'Successfully created '.$this->getEntityName());
              return Redirect::to($this->entityBaseUrl);
         }
+    }
+
+    public function getStoreValidation(){
+        $rules = array(
+            ApplicationConstant::NAME => ApplicationConstant::REQUIRED,
+            ApplicationConstant::AMOUNT => ApplicationConstant::REQUIRED
+        );
+        return $rules;
     }
 
     public function getFormatValidation($p_Data){

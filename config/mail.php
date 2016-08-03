@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => array('address' => 'jejezisal@gmail.com', 'name' => 'Fauzi'),
+    'from' => array('address' => 'zisal@gmail.com', 'name' => 'Fauzi'),
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'password' => env('iLOVEU216055'),
+    'password' => env('abcdef'),
 
     /*
     |--------------------------------------------------------------------------

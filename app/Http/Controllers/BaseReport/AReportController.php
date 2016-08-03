@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\BaseReport;
 
-use Illuminate\Support\Facades\View;
+use App\Util\GeneralConverter;
+use Illuminate\Support\Facades\Input;
+use Request;
 use Illuminate\Support\Facades\Config;
 use JasperPHP\JasperPHP as JasperPHP;
 use Illuminate\Support\Facades\Redirect;
@@ -10,13 +12,15 @@ use Illuminate\Routing\Controller;
 use App\Http\Controllers\Auth\MenuGenerator;
 use Illuminate\Support\Facades\Auth;
 
-abstract class AReportController extends Controller implements IReportController{		
+abstract class AReportController extends Controller implements IReportController{
 
 	protected $configurationDatabase;
 
 	protected $extPDF = 'pdf';
 
     protected $extExcel = 'xls';
+
+    protected $choosenExt;
 
 	protected $output;
 
@@ -52,17 +56,89 @@ abstract class AReportController extends Controller implements IReportController
     }
 
     public function createPDFReport(){
-        $this->outputFile = $this->output.'.'.$this->extPDF;
+        $this->choosenExt = $this->extPDF;
+        $param = Input::all();
+        $this->generateFileReport2($param);
+    }
+
+    public function createEXCELReport(){
+        $this->choosenExt = $this->extExcel;
+        $this->generateFileReport();
+    }    
+
+    private function generateFileReport2($param){
+        $generalConverter = new GeneralConverter();
+//        $startDate = $generalConverter->getFormatTimeStamp_YmdHis($param['startDate']);
+//        $endDate = $generalConverter->getFormatTimeStamp_YmdHis($param['endDate']);
+        $startDate = $generalConverter->getFormatDate_ddMMyyyy($param['startDate']);
+        $endDate = $generalConverter->getFormatDate_ddMMyyyy($param['endDate']);
+        echo $startDate;
+        echo '<br />';
+        echo $endDate;
+        echo '<br />';
+        echo $this->getSourceReport();
+        echo '<br />';
+        echo $this->output;
+        echo '<br />';
+        echo $this->choosenExt;
+        echo '<br />';
+        print_r($this->configurationDatabase);
+
+        $this->outputFile = $this->output.'.'.$this->choosenExt;
+//        $this->jasperPHP->process(
+//            $this->getSourceReport(),
+//            $this->output,
+//            array($this->choosenExt),
+//            array(
+//                "php_version" => phpversion(),
+//                "startDate"=>$startDate,
+//                "endDate"=>$endDate
+//            ),
+//            $this->configurationDatabase,
+//            false,
+//            false
+//        )->execute();
+
+        $this->jasperPHP->process(
+            $this->getSourceReport(),
+            $this->output,
+            array($this->choosenExt),
+            array(
+//                "startDate" => $startDate,
+//                "endDate" => $endDate
+            ),
+            $this->configurationDatabase
+        )->execute();
+
+        if (file_exists($this->outputFile)){
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename='.basename($this->outputFile));
+            header('Content-Transfer-Encoding: binary');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($this->outputFile));
+
+            ob_clean();
+            flush();
+            readfile($this->outputFile);
+            unlink($this->outputFile);
+        }
+        return Redirect::to($this->getRedirectPage());
+    }
+
+    private function generateFileReport(){
+        $this->outputFile = $this->output.'.'.$this->choosenExt;
         $this->jasperPHP->process(
             $this->getSourceReport(), 
             $this->output,
-            array($this->extPDF),
-            array(),
+            array($this->choosenExt),
+            $this->getReportParameter(),
             $this->configurationDatabase,
             false,
             false
         )->execute();
-
         if (file_exists($this->outputFile)){
             header('Content-Description: File Transfer');
             header('Content-Type: application/octet-stream');
@@ -78,12 +154,10 @@ abstract class AReportController extends Controller implements IReportController
             readfile($this->outputFile);
             unlink($this->outputFile);
         }                               
-        return Redirect::to($this->redirectPage);
+        return Redirect::to($this->getRedirectPage());
     }
 
-    public function createEXCELReport(){
-        $this->outputFile = $this->output.'.'.$this->extExcel;
-    }    
-
-    
+    public function getReportParameter(){
+        return array();
+    }
 }

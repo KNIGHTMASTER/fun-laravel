@@ -22,7 +22,8 @@ class ReportBankController extends AReportController{
 		return '/reporting';
 	}
 
-	public function post(){
-		return parent::createPDFReport();
-	}	
+	public function getReportParameter(){
+		return array();
+	}
+	
 }

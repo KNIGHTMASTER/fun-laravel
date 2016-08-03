@@ -4,12 +4,22 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Download Report Bank</div>
  
-				<div class="panel-body">
-					{!! FORM::open(['url' => '/report-bank']) !!}
-                		<div class="box-body">
-                    		{!! Form::submit('Download', ['class' => 'btn btn-success']) !!}
+				<div class="box-body">
+					<div class="row">
+						{!! FORM::open(['url' => '/report-bank-pdf']) !!}
+                			<div class="col-xs-1">
+	                    		{!! Form::submit('PDF', ['class' => 'btn btn-success']) !!}
+                			</div>
+                		{!! FORM::close() !!}
+
+                		{!! FORM::open(['url' => '/report-bank-xls']) !!}
+                		<div class="col-xs-1">
+                    		{!! Form::submit('EXCEL', ['class' => 'btn btn-success']) !!}
                 		</div>
-                	{!! FORM::close() !!}
+                        {!! FORM::close() !!}                        
+					</div>
+                	
+                		
 				</div>
 			</div>
 </div>

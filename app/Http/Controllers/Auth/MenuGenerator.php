@@ -37,12 +37,12 @@ class MenuGenerator
 
         $assignedData = array();
         foreach ($sfa as $explodeData){            
-            $sf = ModelFunction::where(ApplicationConstant::ID, ApplicationConstant::EQUALS, $explodeData[ApplicationConstant::FUNCTION_ID])->get();            
+            $sf = ModelFunction::where(ApplicationConstant::ID, ApplicationConstant::EQUALS, $explodeData[ApplicationConstant::FUNCTION_ID])->get();
             foreach ($sf as $subExplodedData){
-                $subMenu = ModelFunction::where(ApplicationConstant::FUNCTION_PARENT_ID, ApplicationConstant::EQUALS, $subExplodedData->id)->get();                                
+                $subMenu = ModelFunction::where(ApplicationConstant::FUNCTION_PARENT_ID, ApplicationConstant::EQUALS, $subExplodedData->id)->get();
                                             
                 foreach ($subMenu as $subMenuCheck) {
-                    $isAssigned = ModelFunctionAssignment::where(ApplicationConstant::FUNCTION_ID, ApplicationConstant::EQUALS, $subMenuCheck[ApplicationConstant::ID])->get();                        
+                    $isAssigned = ModelFunctionAssignment::where(ApplicationConstant::FUNCTION_ID, ApplicationConstant::EQUALS, $subMenuCheck[ApplicationConstant::ID])->get();
                     foreach ($isAssigned as $assigned) {                        
                         if ($assigned->group_id != 1){
                             $assignedData[] = $subMenuCheck;

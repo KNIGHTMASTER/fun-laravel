@@ -32,11 +32,19 @@ class HomeController extends Controller{
 
     public function dashboard(){
         $menuGenerator = new MenuGenerator();
-        $menuList = $menuGenerator->generateMenuResponse($this->currentUserLogin);
+        $menuList = $menuGenerator->generateMenuResponse($this->currentUserLogin);        
+        $userImage = 'img/avatar3.png';    
+        if ($this->currentUserLogin->user_code == 'zuna'){
+            $userImage = 'img/zuna.jpg';
+        }else{
+            $userImage = 'img/fauzi.jpg';
+        }    
         return View::make('pages.dashboard')->with(
             array(
                 'userName' => $this->currentUserLogin->name,
-                'menuList' => $menuList)
-            );
+                'userImage' => $userImage,
+                'menuList' => $menuList
+            )
+        );        
     }
 }
