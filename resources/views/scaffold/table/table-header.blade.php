@@ -8,7 +8,7 @@
                 <h3 class="box-title">Manage {!! $entityName !!}</h3>
             </div>
             {{-- @include('scaffold.validation.alert-error-search-table-layout') --}}
-            @include('scaffold.validation.validation-search-table-layout')
+            @include('scaffold.validation.validation-layout')
             <table>
                 <tr class="box-header">
                 @if ($headerAction['search'] == 1)
@@ -45,6 +45,7 @@
                 {{--</tr>--}}
             </table>
             <hr>
+            @yield('extra-filter')
             @yield('table')
         </div>
     </section>

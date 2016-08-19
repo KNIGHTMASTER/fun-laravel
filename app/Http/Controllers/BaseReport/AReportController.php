@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\BaseReport;
 
-use App\Util\GeneralConverter;
-use Illuminate\Support\Facades\Input;
 use Request;
 use Illuminate\Support\Facades\Config;
 use JasperPHP\JasperPHP as JasperPHP;
@@ -57,8 +55,7 @@ abstract class AReportController extends Controller implements IReportController
 
     public function createPDFReport(){
         $this->choosenExt = $this->extPDF;
-        $param = Input::all();
-        $this->generateFileReport2($param);
+        $this->generateFileReport2();
     }
 
     public function createEXCELReport(){
@@ -66,15 +63,8 @@ abstract class AReportController extends Controller implements IReportController
         $this->generateFileReport();
     }    
 
-    private function generateFileReport2($param){
-        $generalConverter = new GeneralConverter();
-//        $startDate = $generalConverter->getFormatTimeStamp_YmdHis($param['startDate']);
-//        $endDate = $generalConverter->getFormatTimeStamp_YmdHis($param['endDate']);
-        $startDate = $generalConverter->getFormatDate_ddMMyyyy($param['startDate']);
-        $endDate = $generalConverter->getFormatDate_ddMMyyyy($param['endDate']);
-        echo $startDate;
-        echo '<br />';
-        echo $endDate;
+    private function generateFileReport2(){
+        print_r($this->getReportParameter());
         echo '<br />';
         echo $this->getSourceReport();
         echo '<br />';
@@ -83,6 +73,12 @@ abstract class AReportController extends Controller implements IReportController
         echo $this->choosenExt;
         echo '<br />';
         print_r($this->configurationDatabase);
+
+        $listParameters = $this->jasperPHP->list_parameters(
+            $this->getSourceReport()
+        )->execute();
+
+        print_r($listParameters);
 
         $this->outputFile = $this->output.'.'.$this->choosenExt;
 //        $this->jasperPHP->process(
@@ -103,12 +99,11 @@ abstract class AReportController extends Controller implements IReportController
             $this->getSourceReport(),
             $this->output,
             array($this->choosenExt),
-            array(
-//                "startDate" => $startDate,
-//                "endDate" => $endDate
-            ),
+            $this->getReportParameter(),
             $this->configurationDatabase
         )->execute();
+
+
 
         if (file_exists($this->outputFile)){
             header('Content-Description: File Transfer');

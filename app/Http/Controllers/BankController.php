@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 use App\ConstantValue\ApplicationConstant;
 use App\Http\Controllers\BaseScaffold\AdminController;
 use App\Model\ModelBank;
+use App\Util\GeneralConverter;
 use Illuminate\Http\Response;
 
 class BankController extends AdminController
@@ -53,7 +54,7 @@ class BankController extends AdminController
     public function storeProcess($p_Data)
     {
         ModelBank::create($p_Data);
-    }
+}
 
     public function getEditPage()
     {

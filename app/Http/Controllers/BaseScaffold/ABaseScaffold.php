@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\BaseScaffold;
 
 use App\ConstantValue\ApplicationConstant;
+use App\Util\GeneralConverter;
 use Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -73,7 +74,7 @@ abstract class ABaseScaffold extends Controller implements
      * ABaseScaffold constructor.
      */
     public function __construct()
-    {        
+    {
         $this->allData = $this->getAllData();
         $this->entityName = $this->getEntityName();
         $this->entityBaseUrl = strtolower(str_replace(" ", "-", $this->entityName));
